@@ -1,0 +1,161 @@
+{
+	"info": {
+		"_postman_id": "f2dfae87-f104-4e7f-9a61-f7182a2566c1",
+		"name": "Betegy.demo-22bet [Oksana Zabrodska]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Random User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e1059e30-304b-4e0a-af2c-3913c6f53012",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "168a38c3-39b3-4310-8380-152c6b4e3187",
+						"exec": [
+							"pm.globals.set('randomNumber', Math.floor(Math.random() * 10));\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "62b5c9c3-8e88-4cc0-8fdb-d767521a266b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://jsonplaceholder.typicode.com/users/{{randomNumber}}"
+			},
+			"response": []
+		},
+		{
+			"name": "User’s associated posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bfafd271-23fe-4f83-8a8f-a939ee33bbb9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "6cb13c01-f67c-4758-ba5e-bf244e308fb9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts?userId={{randomNumber}}",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "{{randomNumber}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ba435dec-07e4-46cf-8466-8f85e0c75786",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validation of the returned response\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.title).to.eql(\"Hello\");\r",
+							"    pm.expect(jsonData.body).to.eql(\"World\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "00c1d49d-3e7a-4abf-adb5-34c7a96bf252",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Hello\",\r\n    \"body\": \"World\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts?userId={{randomNumber}}",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "{{randomNumber}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
